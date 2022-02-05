@@ -1,0 +1,25 @@
+[include]
+    path = ./.gitidentity
+[alias]
+    co = checkout
+    dog = log --all --decorate --oneline --graph
+    fap = fetch --all --prune
+    last = show HEAD --name-status
+    logo = log --oneline
+    l = log --no-merges
+    rebase-renamed = git rebase --strategy-option="rename-threshold=10"
+    st = status --short
+    stashow = stash show -p
+    undorebase = reset --hard ORIG_HEAD
+    upmaster = !git checkout master && git fap && git rebase origin/master
+    wipe = clean -i -e '\\.*' -e 'tags' -e 'compile_commands.json'
+    diffcat = diff --no-prefix -U1000
+[core]
+    pager = diff-highlight | less
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+[merge]
+    tool = meld

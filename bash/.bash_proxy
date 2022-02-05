@@ -1,0 +1,29 @@
+proxy_on() {
+    PROXY=$1
+    NO_PROXY=$2
+
+    export no_proxy=$NO_PROXY
+    export http_proxy=$PROXY
+    export https_proxy=$PROXY
+    export ftp_proxy=$PROXY
+    export rsync_proxy=$PROXY
+
+    export NO_PROXY=$NO_PROXY
+    export HTTP_PROXY=$PROXY
+    export HTTPS_PROXY=$PROXY
+    export FTP_PROXY=$PROXY
+    export RSYNC_PROXY=$PROXY
+
+}
+
+proxy_off() {
+    unset http_proxy
+    unset https_proxy
+    unset ftp_proxy
+    unset rsync_proxy
+
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset FTP_PROXY
+    unset RSYNC_PROXY
+}
