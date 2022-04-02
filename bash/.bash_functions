@@ -9,3 +9,7 @@ fnr() {
 find_empty_dirs() {
     find . -depth -type d -empty
 }
+
+uuid4() {
+    python3 -c 'import uuid; print(uuid.uuid4())'
+}
