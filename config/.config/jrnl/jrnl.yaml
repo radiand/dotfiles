@@ -12,7 +12,7 @@ indent_character: '│'
 journals:
   default: $HOME/journals/default.txt
   todo: $HOME/journals/todo.txt
-linewrap: 79
+linewrap: 80
 tagsymbols: '@'
 template: false
 timeformat: '%Y-%m-%d %H:%M'
