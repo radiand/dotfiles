@@ -12,7 +12,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " code completion and jumping
-Plug 'Valloric/YouCompleteMe'
+Plug 'davidhalter/jedi-vim'
+Plug 'ervandew/supertab'
 Plug 'ludovicchabant/vim-gutentags'
 
 " linters
