@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -x
+
+current_branch=$(git branch | grep \* | cut -d ' ' -f2)
+
+git push $@ origin $current_branch

@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+
+import argparse
+import json
+import re
+from collections import OrderedDict  # unnecessary in newer python3
+
+
+class Ansi:
+    BOLD = '\033[1m'
+    DARK_GRAY = '\033[90m'
+    GREEN = '\033[32m'
+    LIGHT_BLUE = '\033[94m'
+    LIGHT_GREEN = '\033[92m'
+    LIGHT_RED = '\033[91m'
+    LIGHT_YELLOW = '\033[93m'
+    NONE = '\033[0m'
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', '--input-file', type=argparse.FileType('r'), default='-')
+    return parser.parse_args()
+
+
+def colored(value):
+    if value.startswith("http"):
+        return Ansi.LIGHT_GREEN + value + Ansi.NONE
+
+    # user@host coloring
+    value = re.sub(r"^(\w+)(@)", r"{}\1{}\2".format(Ansi.LIGHT_RED, Ansi.NONE), value)
+    value = value.replace("@", Ansi.LIGHT_BLUE + "@" + Ansi.NONE)
+
+    # commentary "(.*)" coloring
+    value = re.sub(r"(.*)(\(.*\))(.*)", r"\1{}\2{}\3".format(Ansi.DARK_GRAY, Ansi.NONE), value)
+    return value
+
+
+def print_dict(d):
+    padding = len((sorted(d.keys(), key=len, reverse=True)[0]))
+    for k, v in d.items():
+        print("{} {}".format(colored(k.ljust(padding)), v))
+
+
+def main():
+    args = get_args()
+    if args.input_file:
+        print_dict(json.load(args.input_file, object_pairs_hook=OrderedDict))
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+jobs=( $(kubectl get jobs --no-headers -o custom-columns=":metadata.name") )
+for job in "${jobs[@]}"
+do
+   pod=$(kubectl get pods -l job-name=$job --no-headers -o custom-columns=":metadata.name")
+   kubectl logs $pod
+done

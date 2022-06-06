@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -x
+
+current_branch=$(git branch | grep \* | cut -d ' ' -f2)
+
+git checkout master
+git fetch --all --prune
+git rebase origin/master
+git checkout $current_branch
+git rebase master

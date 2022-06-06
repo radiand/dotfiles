@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+git branch | grep -v master | while read line ; do
+    read -p "  $line --- DELETE? [y/n]: " -n 1 -r < /dev/tty
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        git branch -D $line
+    fi
+done

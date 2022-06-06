@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+set -x
+git st | rg orig | awk '{print $2}' | xargs rm

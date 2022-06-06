@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# $ count PATTERN WHERE
+#
+# Count occurences of PATTERN in WHERE
+
+pattern=$1
+where=$2
+grepper="grep -rEIo $pattern $where | cut -d':' -f2 "
+
+if [ -x "$(command -v rg)" ]; then
+    grepper="rg -o --no-filename --no-line-number $pattern $where"
+fi
+
+#$grepper | cut -d':' -f2 | sort | uniq -c | sort -nr
+$grepper | sort | uniq -c | sort -nr

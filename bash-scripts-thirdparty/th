@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# REQUIREMENTS
+# Obtain Moby Thesaurus dictionary (search for 'moby thesaurus mthesaur.txt' in
+# Google) and copy it to ~/opt/storage/mthesaur.txt
+
+# Credits to reddit.com/u/skeeto.
+# https://www.reddit.com/r/commandline/comments/si1j31/offline_thesaurus/hv7iadn/?utm_source=reddit&utm_medium=web2x&context=3
+
+set -e
+
+SCRIPTNAME=$(basename $0)
+
+usage() {
+    echo "$(tput bold)Thesaurus - synonyms dictionary$(tput sgr0)"
+    echo
+    echo "usage: $SCRIPTNAME [-r] word"
+    exit 1
+}
+
+DICT_PATH=$HOME/opt/storage/mthesaur.txt
+
+if [ ! -f $DICT_PATH ]; then
+    >&2 echo "No file with dictionary. Checked in: $DICT_PATH"
+    exit 1
+fi
+
+reverse=no
+while getopts r opt
+do
+    case $opt in
+    r) reverse=yes;;
+    ?) usage;;
+    esac
+done
+
+shift $(($OPTIND - 1))
+if [ $# -ne 1 ]; then
+    usage
+fi
+
+if [ $reverse = yes ]; then
+    grep -E ",$1(,|\$)" $DICT_PATH | sed 's/,.*//'
+else
+    grep "^$1," $DICT_PATH | tr , '\n' | tail -n+2
+fi | column | less -SRXF

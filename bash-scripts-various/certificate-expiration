@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# $1 == .crt file
+
+openssl x509 -in $1 -noout -text | rg "Not After"
