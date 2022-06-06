@@ -8,8 +8,8 @@ vnoremap . <C-c>.
 
 " use ctrl+s for saving in all modes
 noremap <C-s> :write<CR><Esc>
-vnoremap <C-s> <C-c>:write<CR><Esc>
-inoremap <C-s> <C-o>:write<CR><Esc>
+vnoremap <C-s> <Esc>:write<CR><Esc>
+inoremap <C-s> <Esc>:write<CR><Esc>
 
 " cycle buffers
 nnoremap <F2> :bprevious<CR>
