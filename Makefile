@@ -25,7 +25,7 @@ dir-config:
 	mkdir -p ~/.config/jrnl
 
 dir-opt:
-	mdkir -p ~/opt
+	mkdir -p ~/opt
 
 dir-vim:
 	mkdir -p ~/.vim
