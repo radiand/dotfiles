@@ -18,6 +18,9 @@ stty -ixon
 # works if FZF was installed from debian packages
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
+# fedora-specific path for git prompt
+[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
+
 export PATH=~/bin:$PATH
 export PATH=~/.local/bin:$PATH
 export PATH=~/opt:$PATH
