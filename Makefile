@@ -23,6 +23,7 @@ simulate-all:
 
 dir-config:
 	mkdir -p ~/.config/jrnl
+	mkdir -p ~/.config/nvim
 
 dir-opt:
 	mkdir -p ~/opt
