@@ -8,6 +8,9 @@ autocmd VimEnter * wincmd p
 " nerd sidebar will be x columns wide
 let g:NERDTreeWinSize=40
 
+" workaround for never-hiding menu since nvim 0.8.0 (and vim 9.0)
+let g:NERDTreeMinimalMenu=1
+
 " change color for filetypes
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
