@@ -15,7 +15,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'neovim/nvim-lspconfig'
 
 " lsp completion
-Plug 'echasnovski/mini.completion'
+Plug 'lifepillar/vim-mucomplete'
 
 " code completion and jumping
 Plug 'ludovicchabant/vim-gutentags'
