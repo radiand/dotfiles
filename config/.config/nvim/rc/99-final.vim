@@ -13,6 +13,6 @@ set visualbell t_vb=
 
 " shell-like tab completion of commands
 set wildmenu
-set wildmode=list:longest
+set wildmode=longest:full,full
 
 set formatoptions-=t
