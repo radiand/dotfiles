@@ -3,15 +3,6 @@ _venv() {
         $1 -m venv venv
     fi
 
-    if [ ! -f ./.ycm_extra_conf.py ]; then
-cat << EOF >> ./.ycm_extra_conf.py
-def Settings( **kwargs ):
-    return {
-        "interpreter_path": "$PWD/venv/bin/python"
-    }
-EOF
-    fi
-
     . venv/bin/activate
 }
 
@@ -19,20 +10,10 @@ venv() {
     _venv "python3"
 }
 
-venv310() {
-    _venv "python3.10"
-}
-
 venv_recreate() {
     deactivate
     rm -rf venv
     venv
-}
-
-venv310_recreate() {
-    deactivate
-    rm -rf venv
-    venv310
 }
 
 pyclean() {

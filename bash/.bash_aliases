@@ -1,5 +1,3 @@
-# vim: set ft=sh:
-
 alias ls="ls --color=auto"
 alias la="exa -Flga --group-directories-first --git"
 alias l="exa -Flg --group-directories-first --git"
