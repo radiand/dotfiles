@@ -12,7 +12,16 @@ vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    --
+    -- ATTENTION: Omnicomplete plugins like supertab or mucomplete have
+    -- troubles communicating with neovim's async lsp. To overcome this,
+    -- 'omnifunc_sync' is provided. If you want to use some modern completion
+    -- plugins, consider using:
+    --
+    -- > vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    --
+    -- See https://github.com/neovim/neovim/issues/12390
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.omnifunc_sync")
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
