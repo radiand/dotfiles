@@ -31,3 +31,4 @@ command Black :call Black()
 command ISort :call ISort()
 command PlantUMLChrome :call PlantUMLChrome()
 command PlantUMLGenerateSVG :call PlantUMLGenerateSVG()
+command PlantUMLCopyUrl :let @+='file://' . expand('%:p:r') . '.svg'
