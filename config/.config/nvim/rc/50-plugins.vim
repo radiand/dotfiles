@@ -27,7 +27,6 @@ Plug 'ntpeters/vim-better-whitespace'
 " language support
 Plug 'sheerun/vim-polyglot'
 
-Plug 'google/vim-searchindex'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 
