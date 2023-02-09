@@ -46,3 +46,17 @@ set wildignore+=tags,tags.temp,compile_commands.json
 
 " disable highlighting search by default, but it can be toggled with :set hlsearch!
 set nohlsearch
+
+" no error bells
+set noerrorbells
+set visualbell t_vb=
+
+" shell-like tab completion of commands
+set wildmenu
+set wildmode=longest:full,full
+
+" yank to xclip
+set clipboard=unnamedplus
+
+" paste won't replace yanked text
+xnoremap p pgvy
