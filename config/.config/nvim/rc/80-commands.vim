@@ -16,19 +16,7 @@ function! PlantUMLGenerateSVG()
    execute ':redraw!'
 endfunction
 
-function! PlantUMLChrome()
-   let command = ':!google-chrome-stable ' . expand('%:r') . '.svg'
-   silent execute command
-   execute ':redraw!'
-endfunction
-
-function! PlantUMLShow()
-   let command = ':!xdg-open ' . expand('%:r') . '.png'
-   execute command
-endfunction
-
 command Black :call Black()
 command ISort :call ISort()
-command PlantUMLChrome :call PlantUMLChrome()
 command PlantUMLGenerateSVG :call PlantUMLGenerateSVG()
 command PlantUMLCopyUrl :let @+='file://' . expand('%:p:r') . '.svg'
