@@ -1,4 +1,2 @@
-autocmd BufNewFile,BufRead *.md  setlocal textwidth=80
-autocmd BufNewFile,BufRead *.py  setlocal textwidth=100
-autocmd BufNewFile,BufRead *.tag set syntax=html
-autocmd BufNewFile,BufRead .bash* set syntax=bash
+autocmd FileType markdown setlocal textwidth=80
+autocmd FileType python setlocal textwidth=100
