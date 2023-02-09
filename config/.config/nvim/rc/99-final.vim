@@ -1,7 +1,3 @@
-" automatically write on buffer change
-au FocusLost * :wa
-set autowrite
-
 " no error bells
 set noerrorbells
 set visualbell t_vb=
