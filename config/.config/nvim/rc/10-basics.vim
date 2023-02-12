@@ -1,5 +1,3 @@
-syntax on
-
 set shell=/bin/bash
 
 " store swap (.swp) files in one place
@@ -17,8 +15,7 @@ set number
 " when matching parentheses, briefly jump to match
 set showmatch
 
-" during search, jump to matches while typing
-set incsearch
+" ignore case when the pattern contains lowercase letters only
 set ignorecase
 set smartcase
 
@@ -27,18 +24,10 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set scrolloff=4
-
-set autoindent
 set smartindent
-set backspace=indent,eol,start
 
-" show current mode
-set showmode
-set showcmd
-
-" enable mouse
-set mouse=a
+" minimal number of screen lines to keep above and below the cursor
+set scrolloff=4
 
 " search for tags file up to /
 set tags=tags;/
@@ -46,10 +35,6 @@ set wildignore+=tags,tags.temp,compile_commands.json
 
 " disable highlighting search by default, but it can be toggled with :set hlsearch!
 set nohlsearch
-
-" no error bells
-set noerrorbells
-set visualbell t_vb=
 
 " shell-like tab completion of commands
 set wildmenu
