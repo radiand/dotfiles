@@ -60,3 +60,6 @@ set clipboard=unnamedplus
 
 " paste won't replace yanked text
 xnoremap p pgvy
+
+" make working with :find a little bit convenient
+set path=.,**
