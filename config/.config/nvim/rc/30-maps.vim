@@ -23,3 +23,6 @@ map <F5> <Esc>:NERDTreeToggle<CR>
 nnoremap <F8> :set hlsearch!<CR>
 
 nnoremap <leader>t :Files<CR>
+
+" list opened buffers and await typing number
+nnoremap gb :ls<CR>:b<Space>
