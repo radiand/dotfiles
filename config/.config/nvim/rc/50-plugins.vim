@@ -21,7 +21,6 @@ Plug 'lifepillar/vim-mucomplete'
 Plug 'ludovicchabant/vim-gutentags'
 
 " linters
-Plug 'dense-analysis/ale'
 Plug 'ntpeters/vim-better-whitespace'
 
 " language support

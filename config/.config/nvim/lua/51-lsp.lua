@@ -35,7 +35,6 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<space>f", function()
         vim.lsp.buf.format({ async = true })
     end, bufopts)
-
 end
 
 local lsp_flags = {
@@ -72,8 +71,27 @@ require("lspconfig")["rust_analyzer"].setup({
 
 vim.diagnostic.config({
     severity_sort = true,
-    signs = false,
+    signs = true,
     underline = false,
     update_in_insert = false,
     virtual_text = false,
 })
+
+vim.g.diagnostics_visible = true
+function _G.toggle_diagnostics()
+    if vim.g.diagnostics_visible then
+        vim.g.diagnostics_visible = false
+        vim.diagnostic.disable()
+    else
+        vim.g.diagnostics_visible = true
+        vim.diagnostic.enable()
+    end
+end
+
+vim.api.nvim_buf_set_keymap(
+    0,
+    "n",
+    "gz",
+    ":call v:lua.toggle_diagnostics()<CR>",
+    { silent = true, noremap = true }
+)
