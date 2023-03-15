@@ -28,6 +28,7 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
 
 " fzf
 Plug 'junegunn/fzf'
