@@ -1,3 +1,5 @@
+export EDITOR=nvim
+
 # works if FZF was installed from debian packages
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
