@@ -6,7 +6,7 @@ endfunction
 
 function! ISort()
    let save_pos = getpos(".")
-   execute ':%!python3 -m isort - 2>/dev/null'
+   execute ':%!isort - 2>/dev/null'
    call setpos(".", save_pos)
 endfunction
 
