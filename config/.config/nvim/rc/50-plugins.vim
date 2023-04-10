@@ -4,8 +4,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'gruvbox-community/gruvbox'
 
 " appearance extensions
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 
 " git support
 Plug 'airblade/vim-gitgutter'
