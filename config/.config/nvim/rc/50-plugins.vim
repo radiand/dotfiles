@@ -16,9 +16,6 @@ Plug 'neovim/nvim-lspconfig'
 " lsp completion
 Plug 'lifepillar/vim-mucomplete'
 
-" code completion and jumping
-Plug 'ludovicchabant/vim-gutentags'
-
 " linters
 Plug 'ntpeters/vim-better-whitespace'
 
