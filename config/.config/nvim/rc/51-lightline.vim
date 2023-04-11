@@ -7,8 +7,15 @@ let g:lightline = {
 \        [ 'mode', 'paste' ],
 \        [ 'readonly', 'filename', 'modified' ],
 \        [ 'gitbranch' ]
-\      ]
+\      ],
+\      'right': [
+\        [ 'lineinfo', 'linecount' ],
+\        [ 'fileformat', 'fileencoding', 'filetype']
+\       ]
 \    },
+\    'component': {
+\      'linecount': "%{line('$')}",
+\     },
 \    'component_function': {
 \      'gitbranch': 'FugitiveHead'
 \    },
