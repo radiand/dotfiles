@@ -4,11 +4,10 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-set t_Co=256
-
 set background=dark
 set cursorline
-set fillchars+=vert:\|
+
+" always show additional column in the gutter to prevent autoresize
 set signcolumn=yes
 
 let g:gruvbox_contrast_dark = 'soft'
