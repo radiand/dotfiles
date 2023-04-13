@@ -10,7 +10,7 @@ set cursorline
 " always show additional column in the gutter to prevent autoresize
 set signcolumn=yes
 
-let g:gruvbox_contrast_dark = 'soft'
+let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_sign_column = 'bg0'
 
 colorscheme gruvbox
