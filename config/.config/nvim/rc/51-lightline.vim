@@ -13,6 +13,12 @@ let g:lightline = {
 \        [ 'fileformat', 'fileencoding', 'filetype']
 \       ]
 \    },
+\    'inactive': {
+\      'left': [
+\        [ 'filename', 'modified' ]
+\      ],
+\       'right': []
+\    },
 \    'component': {
 \      'linecount': "%{line('$')}",
 \     },
