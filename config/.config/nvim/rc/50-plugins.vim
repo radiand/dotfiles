@@ -22,8 +22,8 @@ Plug 'ntpeters/vim-better-whitespace'
 " language support
 Plug 'sheerun/vim-polyglot'
 
-Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
 " fzf
