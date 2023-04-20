@@ -4,6 +4,9 @@ case $- in
     *) return;;
 esac
 
+# disable job control (bg, fg, ctrl-z)
+set +m
+
 stty -ixon
 
 [ -f ~/.bash_auxiliary ] && source ~/.bash_auxiliary
