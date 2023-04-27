@@ -17,9 +17,12 @@ autocmd! FileType fzf tnoremap <buffer> <C-q> <c-c>
 
 " list opened buffers and await typing number to switch buffer
 nnoremap <leader>b :ls<CR>:b<Space>
-" list opened buffers and await typing number to delete buffer
-nnoremap <leader>db :ls<CR>:bd<Space>
+" switch current buffer to alternate and delete the alternate
+nnoremap <leader>db :bp\|bd #<CR>
 
 noremap <F5> <Esc>:NERDTreeToggle<CR>
 
 noremap <leader>t :Files<CR>
+
+" toggle quickfix window
+nnoremap <expr> <leader>q empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'
