@@ -16,7 +16,17 @@ function! PlantUMLGenerateSVG()
    execute ':redraw!'
 endfunction
 
+function! ToggleQuickFix()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+        copen
+    else
+        cclose
+    endif
+endfunction
+
 command Black :call Black()
 command ISort :call ISort()
+command Ruff :cexpr system("ruff -q src tests")
 command PlantUMLGenerateSVG :call PlantUMLGenerateSVG()
 command PlantUMLCopyUrl :let @+='file://' . expand('%:p:r') . '.svg'
+
