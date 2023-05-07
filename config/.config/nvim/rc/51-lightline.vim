@@ -5,7 +5,7 @@ let g:lightline = {
 \    'active': {
 \      'left': [
 \        [ 'mode', 'paste' ],
-\        [ 'readonly', 'filename', 'modified' ],
+\        [ 'readonly', 'shortenedpath', 'modified' ],
 \        [ 'gitbranch' ]
 \      ],
 \      'right': [
@@ -23,6 +23,16 @@ let g:lightline = {
 \      'linecount': "%{line('$')}",
 \     },
 \    'component_function': {
-\      'gitbranch': 'FugitiveHead'
+\      'gitbranch': 'FugitiveHead',
+\      'shortenedpath': 'ShortenedPath'
 \    },
 \  }
+
+function! ShortenedPath()
+let l:filePath = expand('%')
+    if winwidth(0) > 100
+        return l:filePath
+    else
+        return pathshorten(l:filePath)
+    endif
+endfunction
