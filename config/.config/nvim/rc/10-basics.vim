@@ -48,3 +48,7 @@ xnoremap p pgvy
 
 " make working with :find a little bit convenient
 set path=.,**
+
+" disable netrw
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
