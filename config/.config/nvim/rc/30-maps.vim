@@ -26,3 +26,6 @@ noremap <leader>t :Files<CR>
 
 " toggle quickfix window
 nnoremap <expr> <leader>q empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'
+
+" poor man's wiki (with vim-markdown instead of vimwiki)
+nnoremap <leader>ww :e $HOME/wiki/index.md<CR>
