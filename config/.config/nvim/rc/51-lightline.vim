@@ -21,15 +21,15 @@ let g:lightline = {
 \    },
 \    'component_function': {
 \      'gitbranch': 'FugitiveHead',
-\      'shortenedpath': 'ShortenedPath'
+\      'shortenedpath': 'ShortenedRelativePath'
 \    },
 \  }
 
-function! ShortenedPath()
-let l:filePath = expand('%')
-    if winwidth(0) > 100
-        return l:filePath
+function! ShortenedRelativePath()
+    let rel_path = expand('%f')
+    if empty(rel_path)
+        return '[Empty]'
     else
-        return pathshorten(l:filePath)
+        return pathshorten(rel_path)
     endif
 endfunction
