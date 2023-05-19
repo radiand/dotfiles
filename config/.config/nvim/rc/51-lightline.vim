@@ -9,7 +9,7 @@ let g:lightline = {
 \        [ 'gitbranch' ]
 \      ],
 \      'right': [
-\        [ 'lineinfo', 'linecount' ],
+\        [ 'lineinfo' ],
 \        [ 'fileformat', 'fileencoding', 'filetype']
 \       ]
 \    },
@@ -19,9 +19,6 @@ let g:lightline = {
 \      ],
 \       'right': []
 \    },
-\    'component': {
-\      'linecount': "%{line('$')}",
-\     },
 \    'component_function': {
 \      'gitbranch': 'FugitiveHead',
 \      'shortenedpath': 'ShortenedPath'
