@@ -20,10 +20,19 @@ let g:lightline = {
 \       'right': []
 \    },
 \    'component_function': {
-\      'gitbranch': 'FugitiveHead',
+\      'gitbranch': 'StatuslineGitBranch',
 \      'shortenedpath': 'ShortenedRelativePath'
 \    },
 \  }
+
+function! StatuslineGitBranch()
+    let git_branch = system('git branch --show-current')
+    if v:shell_error == 0
+        return trim(git_branch)
+    else
+        return ''
+    endif
+endfunction
 
 function! ShortenedRelativePath()
     let rel_path = expand('%f')
