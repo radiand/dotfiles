@@ -47,3 +47,4 @@ endfunction
 command -nargs=* ZettelCreate :call ZettelCreate(<q-args>)
 
 nnoremap <leader>zk :ZettelCreate<CR>
+nnoremap <leader>zf :lua require("telescope.builtin").live_grep({cwd="<C-r>=zettelkasten<CR>"})<CR>
