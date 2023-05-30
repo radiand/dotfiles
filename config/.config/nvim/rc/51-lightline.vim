@@ -15,7 +15,7 @@ let g:lightline = {
 \    },
 \    'inactive': {
 \      'left': [
-\        [ 'filename', 'modified' ]
+\        [ 'readonly', 'shortenedpath', 'modified' ],
 \      ],
 \       'right': []
 \    },
