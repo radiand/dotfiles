@@ -4,6 +4,7 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fl", builtin.loclist, {})
 vim.keymap.set("n", "<leader>fq", builtin.quickfix, {})
+vim.keymap.set("n", "<leader>fr", builtin.resume, {})
 vim.keymap.set("n", "<leader>fw", builtin.grep_string, {})
 
 require("telescope").setup({
