@@ -3,9 +3,6 @@ call plug#begin('~/.config/nvim/plugged')
 " theme
 Plug 'gruvbox-community/gruvbox'
 
-" appearance extensions
-Plug 'itchyny/lightline.vim'
-
 " telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
