@@ -18,16 +18,19 @@ endfunction
 
 function! GetActiveStatusline()
     " left side
-    let line = ' %f %h%m%r%w'
+    let line = '%( %m%) %f'
     " fill space
     let line .= '%='
     " right side
-    let line .= '%y %8(%l,%c%) '
+    let line .= '%{&filetype ? &filetype : ""}'
+    let line .= '[%{&fileencoding ? &fileencoding : &encoding} %{&fileformat}]'
+    let line .= '%{&readonly ? "[read-only]" : ""} '
+    let line .= '%8(%l:%c%) '
     return line
 endfunction
 
 function! GetInactiveStatusline()
-    let line = ' %t %h%m%r%w '
+    let line = '%( %m%) %t'
     return line
 endfunction
 
