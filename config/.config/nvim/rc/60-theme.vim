@@ -1,7 +1,6 @@
 set termguicolors
 
 set background=dark
-set cursorline
 
 " always show additional column in the gutter to prevent autoresize
 set signcolumn=yes
