@@ -22,7 +22,7 @@ function! GetActiveStatusline()
     " fill space
     let line .= '%='
     " right side
-    let line .= '%{&filetype ? &filetype : ""}'
+    let line .= '%y'
     let line .= '[%{&fileencoding ? &fileencoding : &encoding} %{&fileformat}]'
     let line .= '%{&readonly ? "[read-only]" : ""} '
     let line .= '%8(%l:%c%) '
