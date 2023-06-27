@@ -44,4 +44,5 @@ command Ruff :cexpr system("tox run --skip-pkg-install -qq -e ruff -- -q")
 command Mypy :cexpr system("tox run --skip-pkg-install -q -e mypy")
 command PlantUMLGenerateSVG :call PlantUMLGenerateSVG()
 command PlantUMLCopyUrl :let @+='file://' . expand('%:p:r') . '.svg'
+command PlantUMLSetCommentString :setlocal commentstring=\'\ %s
 command DeleteHiddenBuffers :call DeleteHiddenBuffers()
