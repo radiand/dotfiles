@@ -1,0 +1,9 @@
+env:
+  TERM: xterm-256color
+
+window:
+  decorations: none
+  startup_mode: Maximized
+
+font:
+  size: 9.0
