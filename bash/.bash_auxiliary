@@ -14,3 +14,11 @@ if command -v zoxide &> /dev/null
 then
     eval "$(zoxide init bash)"
 fi
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+if [ -d "$BASE16_SHELL" ]; then
+    if [[ -n "$PS1" && -s "$BASE16_SHELL/profile_helper.sh" ]]; then
+        source "$BASE16_SHELL/profile_helper.sh"
+    fi
+fi
