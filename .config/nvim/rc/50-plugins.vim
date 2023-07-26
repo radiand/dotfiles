@@ -1,7 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " theme
-Plug 'RRethy/nvim-base16/'
+Plug 'ellisonleao/gruvbox.nvim'
 
 " telescope
 Plug 'nvim-lua/plenary.nvim'
