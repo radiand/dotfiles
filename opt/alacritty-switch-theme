@@ -6,7 +6,7 @@
 #   - alacritty.yml importing theme.yml
 
 ALACRITTY_DIR=~/.config/alacritty
-THEMES_DIR=~/.config/alacritty/alacritty-theme/themes
+THEMES_DIR=~/.config/alacritty/themes
 
 if [ -n "$1" ]; then
     # If theme file was given...
