@@ -11,3 +11,6 @@ window:
 
 font:
   size: 10.5
+
+mouse:
+    hide_when_typing: true
