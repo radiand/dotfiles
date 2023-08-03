@@ -15,6 +15,6 @@
     wipe = clean -i -e '\\.*' -e 'tags' -e 'compile_commands.json'
     diffcat = diff --no-prefix -U1000
 [core]
-    pager = diffr | less
+    pager = diffr | less -R
 [merge]
     tool = meld
