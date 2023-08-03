@@ -5,7 +5,7 @@ Plug 'ellisonleao/gruvbox.nvim'
 
 " telescope
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
 
 " git support
 Plug 'airblade/vim-gitgutter'
