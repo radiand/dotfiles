@@ -16,8 +16,6 @@ nnoremap <leader>b :ls<CR>:b<Space>
 " switch current buffer to alternate and delete the alternate
 nnoremap <leader>db :bp\|bd #<CR>
 
-noremap <F5> <Esc>:NvimTreeToggle<CR>
-
 " toggle quickfix window
 nnoremap <expr> <leader>q empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'
 

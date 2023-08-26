@@ -23,7 +23,7 @@ Plug 'ntpeters/vim-better-whitespace'
 " language support
 Plug 'sheerun/vim-polyglot'
 
-Plug 'nvim-tree/nvim-tree.lua'
+Plug 'stevearc/oil.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
