@@ -21,6 +21,7 @@ Plug 'lifepillar/vim-mucomplete'
 Plug 'ntpeters/vim-better-whitespace'
 
 " language support
+Plug 'mechatroner/rainbow_csv'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'stevearc/oil.nvim'
