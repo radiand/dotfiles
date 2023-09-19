@@ -21,3 +21,6 @@ nnoremap <expr> <leader>q empty(filter(getwininfo(), 'v:val.quickfix')) ? ':cope
 
 " poor man's wiki (with vim-markdown instead of vimwiki)
 nnoremap <leader>ww :e $HOME/wiki/index.md<CR>
+
+" open link under cursor; gx would do that if netrw was enabled
+nnoremap <silent>gl :silent !xdg-open <c-r><c-a><CR>
