@@ -17,9 +17,6 @@ Plug 'neovim/nvim-lspconfig'
 " lsp completion
 Plug 'lifepillar/vim-mucomplete'
 
-" linters
-Plug 'ntpeters/vim-better-whitespace'
-
 " language support
 Plug 'mechatroner/rainbow_csv'
 Plug 'sheerun/vim-polyglot'
