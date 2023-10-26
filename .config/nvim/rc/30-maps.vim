@@ -1,4 +1,4 @@
-let mapleader=','
+map <space> <leader>
 
 nnoremap ; :
 vnoremap ; :
