@@ -44,7 +44,23 @@ function ZettelCreate(text)
     normal G
 endfunction
 
+function ZettelGoto()
+    " Get UID under cursor and open the note in new buffer.
+
+    let cur_word = expand("<cword>")
+    let uid_pattern = "\\d\\{4}\\d\\{2}\\d\\{2}T\\d\\{2}\\d\\{2}\\d\\{2}Z"
+    let uid = matchstr(cur_word, uid_pattern)
+
+    if empty(uid)
+        echo "No valid UID under cursor"
+        return
+    endif
+    execute ":edit " . g:zettelkasten . uid . ".md"
+endfunction
+
 command -nargs=* ZettelCreate :call ZettelCreate(<q-args>)
+command ZettelGoto :call ZettelGoto()
 
 nnoremap <leader>zk :ZettelCreate<CR>
+nnoremap <leader>zg :ZettelGoto<CR>
 nnoremap <leader>zf :lua require("telescope.builtin").live_grep({cwd="<C-r>=zettelkasten<CR>"})<CR>
