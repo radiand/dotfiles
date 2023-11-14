@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+printf "Provide Proton 2FA TOTP code: "
+read totp
+rclone sync -u -v --protondrive-2fa="$totp" ~/wiki proton:wiki
