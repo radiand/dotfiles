@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# "auc" == "add updated & commit"
+
+set -x
+
+git add -u && git commit "$@"
