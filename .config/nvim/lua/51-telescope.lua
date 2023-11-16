@@ -7,7 +7,9 @@ vim.keymap.set("n", "<leader>fq", builtin.quickfix, {})
 vim.keymap.set("n", "<leader>fr", builtin.resume, {})
 vim.keymap.set("n", "<leader>fw", builtin.grep_string, {})
 
-require("telescope").setup({
+local telescope = require("telescope")
+telescope.load_extension("live_grep_args")
+telescope.setup({
     pickers = {
         buffers = {
             show_all_buffers = true,
@@ -20,3 +22,4 @@ require("telescope").setup({
         },
     },
 })
+

@@ -6,6 +6,7 @@ Plug 'ellisonleao/gruvbox.nvim'
 " telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 
 " git support
 Plug 'airblade/vim-gitgutter'
