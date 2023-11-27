@@ -2,10 +2,11 @@
 
 set -x
 
+default_branch=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
 current_branch=$(git branch | grep \* | cut -d ' ' -f2)
 
-git checkout master
+git checkout "$default_branch"
 git fetch --all --prune
-git rebase origin/master
+git rebase origin/"$default_branch"
 git checkout $current_branch
-git rebase master
+git rebase "$default_branch"
