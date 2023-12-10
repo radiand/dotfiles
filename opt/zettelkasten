@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
-
 import argparse
 import json
 import logging
 import re
 import shutil
+import sys
 import tomllib
 import unittest
 from collections import defaultdict
+from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from operator import attrgetter
 from pathlib import Path
 from typing import Self
 
@@ -218,6 +220,46 @@ class ReferencesCommand:
         return list(filesmap.values())
 
 
+class ZkQuery:
+    def __init__(self, files: list[ZkFile]) -> None:
+        self._files = files.copy()
+
+    def tags(self, tags: list[str] | None) -> "ZkQuery":
+        if not tags:
+            return self
+        filtered_files = []
+        for file in self._files:
+            if all(tag in file.header.tags for tag in tags):
+                filtered_files.append(file)
+        return ZkQuery(filtered_files)
+
+    def __iter__(self):
+        return iter(self._files)
+
+
+class FormatCommand:
+    def run(self, files: list[ZkFile]) -> str:
+        template = "{uid} | {title:<{title_width}} | {tags}"
+        title_width = self._max_char_width(files, key="header.title")
+        lines: list[str] = []
+
+        for file in sorted(files, key=lambda file: file.header.timestamp):
+            lines.append(
+                template.format(
+                    uid=file.header.uid,
+                    title=file.header.title,
+                    title_width=title_width,
+                    tags=" ".join(file.header.tags),
+                )
+            )
+
+        return "\n".join(lines)
+
+    @staticmethod
+    def _max_char_width(files: list[ZkFile], key: str) -> int:
+        return max(len(str(attrgetter(key)(file))) for file in files)
+
+
 # --------------------------------------------------------------------------------------------------
 # Tests (run with $./zettelkasten tests)
 # --------------------------------------------------------------------------------------------------
@@ -227,13 +269,14 @@ def make_zk(
     title: str = "ZK TITLE",
     referred_from: set[Uid] = set(),
     refers_to: set[Uid] = set(),
+    tags: set[str] = set(),
 ) -> ZkFile:
     """Shorthand factory for ZkFiles."""
     zk_header = ZkHeader(
         title=title,
         uid=Uid.from_datetime(timestamp),
         timestamp=timestamp,
-        tags=set(),
+        tags=tags,
         referred_from=referred_from,
         refers_to=refers_to,
     )
@@ -316,6 +359,38 @@ class TestReferencesCommand(unittest.TestCase):
         self.assertEqual(results[0].header.refers_to, set())
 
 
+class TestZkQuery(unittest.TestCase):
+    def test_passthrough(self) -> None:
+        files = [
+            make_zk(
+                title="ZK{0}".format(index),
+                body="ZK{0} body".format(index),
+                timestamp=datetime(2023, 1, index, 0, 0, 0, tzinfo=timezone.utc),
+            )
+            for index in range(1, 3)
+        ]
+        self.assertEqual(files, list(ZkQuery(files)))
+
+    def test_filter_tags(self) -> None:
+        files = [
+            make_zk(
+                title="ZK1",
+                body="<irrelevant>",
+                tags={"lang:en"},
+                timestamp=datetime(2023, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+            ),
+            make_zk(
+                title="ZK2",
+                body="<irrelevant>",
+                tags={"lang:pl"},
+                timestamp=datetime(2023, 1, 2, 0, 0, 0, tzinfo=timezone.utc),
+            ),
+        ]
+        filtered = list(ZkQuery(files).tags(["lang:en"]))
+        self.assertEqual(len(filtered), 1)
+        self.assertEqual(filtered[0].header.title, "ZK1")
+
+
 # --------------------------------------------------------------------------------------------------
 # CLI entrypoint
 # --------------------------------------------------------------------------------------------------
@@ -332,6 +407,10 @@ def get_args():
     )
     references_subparser.add_argument("path", type=Path)
 
+    query_subparser = subparsers.add_parser("query", help="query zk files")
+    query_subparser.add_argument("path", type=Path)
+    query_subparser.add_argument("-t", "--tag", action="append", type=str)
+
     return parser.parse_args()
 
 
@@ -347,3 +426,12 @@ if __name__ == "__main__":
         zk_files = repository.load_all()
         zk_files_modified = ReferencesCommand().run(zk_files)
         repository.save_all(zk_files_modified)
+    elif args.command == "query":
+        zk_root = Path(args.path)
+        zk_files = ZkFileRepository(zk_root).load_all()
+        filtered_zk_files = ZkQuery(zk_files).tags(args.tag)
+
+        if not filtered_zk_files:
+            sys.exit(0)
+
+        print(FormatCommand().run(list(filtered_zk_files)))
