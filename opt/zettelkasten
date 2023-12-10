@@ -11,6 +11,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Self
 
 
 class Log:
@@ -32,21 +33,29 @@ class Log:
 logging.basicConfig(format="[%(levelname)s] %(asctime)s %(message)s", level=logging.DEBUG)
 LOGGER = logging.getLogger(__name__)
 
-Uid = str
 
+@dataclass(frozen=True)
+class Uid:
+    value: str
 
-class UidGen:
-    UID_PATTERN = r"\d{4}\d{2}\d{2}T\d{2}\d{2}\d{2}Z"
-    UID_FMT = "%Y%m%dT%H%M%SZ"
-
-    @staticmethod
-    def now() -> Uid:
+    @classmethod
+    def now(cls) -> Self:
         now_dt = datetime.now(tz=timezone.utc)
-        return now_dt.strftime(UidGen.UID_FMT)
+        return cls.from_datetime(now_dt)
 
-    @staticmethod
-    def from_datetime(dt: datetime) -> Uid:
-        return dt.strftime(UidGen.UID_FMT)
+    @classmethod
+    def from_datetime(cls, dt: datetime) -> Self:
+        uid_fmt = "%Y%m%dT%H%M%SZ"
+        return cls(dt.strftime(uid_fmt))
+
+    def __str__(self) -> str:
+        return self.value
+
+
+def collect_uids(text: str) -> list[Uid]:
+    uid_pattern = r"\d{4}\d{2}\d{2}T\d{2}\d{2}\d{2}Z"
+    matches = re.findall(pattern=uid_pattern, string=text)
+    return list(map(Uid, matches))
 
 
 def quoted(string: str) -> str:
@@ -55,10 +64,6 @@ def quoted(string: str) -> str:
 
 def quotedlist(array: list[str]) -> str:
     return "[{0}]".format(", ".join(map(quoted, array)))
-
-
-def uid_to_filename(uid: Uid) -> str:
-    return f"{uid}.md"
 
 
 @dataclass
@@ -78,8 +83,9 @@ class ZkHeader:
         if isinstance(timestamp, str):
             data["timestamp"] = datetime.fromisoformat(timestamp)
 
-        data["referred_from"] = set(data["referred_from"])
-        data["refers_to"] = set(data["refers_to"])
+        data["uid"] = Uid(data["uid"])
+        data["referred_from"] = set(map(Uid, data["referred_from"]))
+        data["refers_to"] = set(map(Uid, data["refers_to"]))
         data["tags"] = set(data["tags"])
 
         return cls(**data)
@@ -87,10 +93,10 @@ class ZkHeader:
     def to_str(self) -> str:
         title = quoted(self.title)
         timestamp = quoted(self.timestamp.isoformat())
-        uid = quoted(self.uid)
+        uid = quoted(str(self.uid))
         tags = quotedlist(sorted(list(self.tags)))
-        referred_from = quotedlist(sorted(list(self.referred_from)))
-        refers_to = quotedlist(sorted(list(self.refers_to)))
+        referred_from = quotedlist(sorted(list(map(str, self.referred_from))))
+        refers_to = quotedlist(sorted(list(map(str, self.refers_to))))
 
         return "\n".join(
             [
@@ -180,7 +186,7 @@ class BackupCommand:
         self._backup_root = backup_root
 
     def run(self) -> None:
-        destination = self._backup_root / f"ZK-{UidGen.now()}"
+        destination = self._backup_root / f"ZK-{Uid.now()}"
         shutil.copytree(self._zk_root, destination)
         LOGGER.info(Log("backup_finished", source=self._zk_root, destination=destination))
 
@@ -195,9 +201,7 @@ class ReferencesCommand:
             # Clear exisiting ones, assuming that they are outdated.
             zk_file.header.refers_to = set()
             zk_file.header.referred_from = set()
-            refmap[zk_file.header.uid].update(
-                re.findall(pattern=UidGen.UID_PATTERN, string=zk_file.body)
-            )
+            refmap[zk_file.header.uid].update(collect_uids(zk_file.body))
 
         for source, destinations in refmap.items():
             if not destinations:
@@ -227,7 +231,7 @@ def make_zk(
     """Shorthand factory for ZkFiles."""
     zk_header = ZkHeader(
         title=title,
-        uid=UidGen.from_datetime(timestamp),
+        uid=Uid.from_datetime(timestamp),
         timestamp=timestamp,
         tags=set(),
         referred_from=referred_from,
@@ -241,7 +245,7 @@ class TestCommonFunctionalities(unittest.TestCase):
         zk_file = make_zk(
             body="ZK_BODY",
             timestamp=datetime(2023, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
-            referred_from=set([UidGen.now()]),
+            referred_from=set([Uid.now()]),
         )
         self.assertEqual(ZkFile.from_str(zk_file.to_str()), zk_file)
 
@@ -253,7 +257,7 @@ class TestReferencesCommand(unittest.TestCase):
         dst_dt = datetime(2023, 1, 2, 0, 0, 0, tzinfo=timezone.utc)
 
         src_zk = make_zk(
-            body="This ZK mentions [[{0}.md]]".format(UidGen.from_datetime(dst_dt)),
+            body="This ZK mentions [[{0}.md]]".format(Uid.from_datetime(dst_dt)),
             timestamp=src_dt,
         )
         dst_zk = make_zk(body="Blah, blah", timestamp=dst_dt)
@@ -262,13 +266,13 @@ class TestReferencesCommand(unittest.TestCase):
         results = to_map(ReferencesCommand().run([src_zk, dst_zk]))
 
         # THEN
-        result_src_zk = results[UidGen.from_datetime(src_dt)]
-        self.assertEqual(result_src_zk.header.refers_to, set([UidGen.from_datetime(dst_dt)]))
+        result_src_zk = results[Uid.from_datetime(src_dt)]
+        self.assertEqual(result_src_zk.header.refers_to, set([Uid.from_datetime(dst_dt)]))
         self.assertEqual(result_src_zk.header.referred_from, set())
 
-        result_dst_zk = results[UidGen.from_datetime(dst_dt)]
+        result_dst_zk = results[Uid.from_datetime(dst_dt)]
         self.assertEqual(result_dst_zk.header.refers_to, set())
-        self.assertEqual(result_dst_zk.header.referred_from, set([UidGen.from_datetime(src_dt)]))
+        self.assertEqual(result_dst_zk.header.referred_from, set([Uid.from_datetime(src_dt)]))
 
     def test_references_are_removed(self) -> None:
         # GIVEN
@@ -278,21 +282,21 @@ class TestReferencesCommand(unittest.TestCase):
         src_zk = make_zk(
             body="This ZK mentioned dst before, now it does not",
             timestamp=src_dt,
-            refers_to=set([UidGen.from_datetime(dst_dt)]),
+            refers_to=set([Uid.from_datetime(dst_dt)]),
         )
         dst_zk = make_zk(
-            body="Blah, blah", timestamp=dst_dt, referred_from=set([UidGen.from_datetime(src_dt)])
+            body="Blah, blah", timestamp=dst_dt, referred_from=set([Uid.from_datetime(src_dt)])
         )
 
         # WHEN
         results = to_map(ReferencesCommand().run([src_zk, dst_zk]))
 
         # THEN
-        result_src_zk = results[UidGen.from_datetime(src_dt)]
+        result_src_zk = results[Uid.from_datetime(src_dt)]
         self.assertEqual(result_src_zk.header.refers_to, set())
         self.assertEqual(result_src_zk.header.referred_from, set())
 
-        result_dst_zk = results[UidGen.from_datetime(dst_dt)]
+        result_dst_zk = results[Uid.from_datetime(dst_dt)]
         self.assertEqual(result_dst_zk.header.refers_to, set())
         self.assertEqual(result_dst_zk.header.referred_from, set())
 
@@ -300,7 +304,7 @@ class TestReferencesCommand(unittest.TestCase):
         # GIVEN
         dt = datetime(2023, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
         zk = make_zk(
-            body="This ZK refers itself: [[{0}.md]]".format(UidGen.from_datetime(dt)),
+            body="This ZK refers itself: [[{0}.md]]".format(Uid.from_datetime(dt)),
             timestamp=dt,
         )
 
