@@ -16,14 +16,6 @@ function! PlantUMLGenerateSVG()
    execute ':redraw!'
 endfunction
 
-function! ToggleQuickFix()
-    if empty(filter(getwininfo(), 'v:val.quickfix'))
-        copen
-    else
-        cclose
-    endif
-endfunction
-
 " Stolen from: https://stackoverflow.com/a/30101152
 function! DeleteHiddenBuffers()
    let tpbl=[]

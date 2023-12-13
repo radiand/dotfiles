@@ -1,21 +1,3 @@
-function! StatuslineGitBranch()
-    let git_branch = system('git branch --show-current')
-    if v:shell_error == 0
-        return trim(git_branch)
-    else
-        return ''
-    endif
-endfunction
-
-function! ShortenedRelativePath()
-    let rel_path = expand('%f')
-    if empty(rel_path)
-        return '[No Name]'
-    else
-        return pathshorten(rel_path)
-    endif
-endfunction
-
 function! GetActiveStatusline()
     " left side
     let line = '%( %m%) %f'
