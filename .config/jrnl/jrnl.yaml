@@ -3,17 +3,17 @@ colors:
   date: GREEN
   tags: BLUE
   title: YELLOW
-default_hour: 9
+default_hour: 0
 default_minute: 0
-editor: 'vim'
+editor: nvim
 encrypt: false
 highlight: true
-indent_character: '│'
+indent_character: null
 journals:
-  default: $HOME/journals/default.txt
-  work: $HOME/journals/work.txt
+  default: $HOME/vault/journals/default.txt
+  work: $HOME/vault/journals/work.txt
 linewrap: 80
 tagsymbols: '@'
 template: false
-timeformat: '%Y-%m-%d %H:%M'
-version: v2.8.4
+timeformat: '%Y-%m-%d %H:%M:%S'
+version: v4.1
