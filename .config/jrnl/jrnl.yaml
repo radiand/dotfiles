@@ -11,6 +11,7 @@ highlight: true
 indent_character: null
 journals:
   default: $HOME/vault/journals/default.txt
+  private: $HOME/vault/journals/private.txt
   work: $HOME/vault/journals/work.txt
 linewrap: 80
 tagsymbols: '@'
