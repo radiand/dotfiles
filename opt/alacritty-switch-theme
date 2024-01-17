@@ -3,7 +3,7 @@
 # Script to change alacritty themes.
 # Requires:
 #   - https://github.com/alacritty/alacritty-theme/
-#   - alacritty.yml importing theme.yml
+#   - alacritty.toml importing theme.toml
 
 ALACRITTY_DIR=~/.config/alacritty
 THEMES_DIR=~/.config/alacritty/themes
@@ -12,9 +12,9 @@ if [ -n "$1" ]; then
     # If theme file was given...
     if [ -e $THEMES_DIR/$1 ]; then
         # ...and it exists, then link to it...
-        ln -sf $THEMES_DIR/$1 $ALACRITTY_DIR/theme.yml
+        ln -sf $THEMES_DIR/$1 $ALACRITTY_DIR/theme.toml
         # ...and trigger alacritty to reload the config.
-        touch $ALACRITTY_DIR/alacritty.yml
+        touch $ALACRITTY_DIR/alacritty.toml
     else
         >&2 echo "ERROR: $THEMES_DIR/$1 does not exist"
     fi
