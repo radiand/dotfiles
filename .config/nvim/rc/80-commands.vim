@@ -38,3 +38,4 @@ command PlantUMLGenerateSVG :call PlantUMLGenerateSVG()
 command PlantUMLCopyUrl :let @+='file://' . expand('%:p:r') . '.svg'
 command PlantUMLSetCommentString :setlocal commentstring=\'\ %s
 command DeleteHiddenBuffers :call DeleteHiddenBuffers()
+command GetBufferPath let @+ = expand('%:p')
