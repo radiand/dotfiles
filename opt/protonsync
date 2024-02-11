@@ -2,4 +2,5 @@
 
 printf "Provide Proton 2FA TOTP code: "
 read totp
-rclone bisync -v --protondrive-2fa="$totp" "$@" ~/wiki proton:wiki
+rclone sync -v --protondrive-2fa="$totp" "$@" ~/wiki proton:wiki
+rclone sync -v --protondrive-2fa="$totp" "$@" ~/vault proton:vault
