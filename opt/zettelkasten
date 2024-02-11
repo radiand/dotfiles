@@ -185,8 +185,8 @@ class ZkFileRepository:
 
     def load_all(self) -> list[ZkFile]:
         files: list[ZkFile] = []
-        for zk_file in self._zk_root.glob("*"):
-            with open(zk_file) as f:
+        for zk_file_path in self._zk_root.glob("*"):
+            with open(zk_file_path) as f:
                 content = f.read()
                 zk_file = ZkFile.from_str(content)
                 files.append(zk_file)
