@@ -23,3 +23,6 @@ nnoremap <leader>ww :e $HOME/wiki/index.md<CR>
 nnoremap <silent>gl :silent !xdg-open <c-r><c-a><CR>
 
 nnoremap <leader>g :vert Git<CR>
+
+" exit terminal mode with Esc
+tnoremap <esc> <C-\><C-N>
