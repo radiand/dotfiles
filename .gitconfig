@@ -14,6 +14,7 @@
     upmaster = !git checkout master && git fap && git rebase origin/master
     wipe = clean -i -e '\\.*' -e 'tags' -e 'compile_commands.json'
     diffcat = diff --no-prefix -U1000
+    where = config --get remote.origin.url
 [core]
     pager = diffr | less -R
 [merge]
