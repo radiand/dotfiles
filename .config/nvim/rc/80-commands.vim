@@ -11,7 +11,7 @@ function! ISort()
 endfunction
 
 function! PlantUMLGenerateSVG()
-   let command = ':!java -jar $HOME/bin/plantuml.jar -DPLANTUML_LIMIT_SIZE=8192 -Dawt.useSystemAAFontSettings=on ' . expand('%:p') . ' -tsvg'
+   let command = ':!plantuml ' . expand('%:p') . ' -tsvg'
    silent execute command
    execute ':redraw!'
 endfunction
