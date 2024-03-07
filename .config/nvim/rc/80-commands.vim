@@ -10,8 +10,8 @@ function! ISort()
    call setpos(".", save_pos)
 endfunction
 
-function! PlantUMLGenerateSVG()
-   let command = ':!plantuml ' . expand('%:p') . ' -tsvg -o/tmp'
+function! PlantUMLGenerate(format="svg")
+   let command = ':!plantuml ' . expand('%:p') . ' -t' . a:format . ' -o/tmp'
    silent execute command
    execute ':redraw!'
 endfunction
@@ -34,7 +34,7 @@ command Black :call Black()
 command ISort :call ISort()
 command Ruff :cexpr system("tox run --skip-pkg-install -qq -e ruff -- -q")
 command Mypy :cexpr system("tox run --skip-pkg-install -q -e mypy")
-command PlantUMLGenerateSVG :call PlantUMLGenerateSVG()
+command -nargs=? PlantUMLGenerate :call PlantUMLGenerate(<f-args>)
 command PlantUMLCopyUrl :let @+='file:///tmp/' . expand('%:t:r') . '.svg'
 command PlantUMLSetCommentString :setlocal commentstring=\'\ %s
 command DeleteHiddenBuffers :call DeleteHiddenBuffers()
