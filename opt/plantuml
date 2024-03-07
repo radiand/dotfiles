@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+java -jar "$HOME"/bin/plantuml.jar -DPLANTUML_LIMIT_SIZE=8192 -Dawt.useSystemAAFontSettings=on "$@"
