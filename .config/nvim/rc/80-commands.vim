@@ -16,6 +16,12 @@ function! PlantUMLGenerate(format="svg")
    execute ':redraw!'
 endfunction
 
+function! PlantUMLShow(format="svg")
+   let command = ":!(display -update 1 /tmp/" . expand('%:t:r') . "." . a:format . " &)"
+   silent execute command
+   execute ':redraw!'
+endfunction
+
 " Stolen from: https://stackoverflow.com/a/30101152
 function! DeleteHiddenBuffers()
    let tpbl=[]
@@ -35,6 +41,7 @@ command ISort :call ISort()
 command Ruff :cexpr system("tox run --skip-pkg-install -qq -e ruff -- -q")
 command Mypy :cexpr system("tox run --skip-pkg-install -q -e mypy")
 command -nargs=? PlantUMLGenerate :call PlantUMLGenerate(<f-args>)
+command -nargs=? PlantUMLShow :call PlantUMLShow(<f-args>)
 command PlantUMLCopyUrl :let @+='file:///tmp/' . expand('%:t:r') . '.svg'
 command PlantUMLSetCommentString :setlocal commentstring=\'\ %s
 command DeleteHiddenBuffers :call DeleteHiddenBuffers()
