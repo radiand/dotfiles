@@ -52,3 +52,6 @@ set path=.,**
 " disable netrw
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
+
+" disable printing pressed keys in command line
+set noshowcmd
