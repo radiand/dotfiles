@@ -1,13 +1,13 @@
 function! GetActiveStatusline()
     " left side
-    let line = '%( %m%) %f'
+    let line = '%( %m%) %t'
     " fill space
     let line .= '%='
     " right side
     let line .= '%y'
     let line .= '[%{&fileencoding ? &fileencoding : &encoding} %{&fileformat}]'
     let line .= '%{&readonly ? "[read-only]" : ""} '
-    let line .= '%8(%l:%c%) '
+    let line .= '%8(%l,%c%) %4(%P%) '
     return line
 endfunction
 
