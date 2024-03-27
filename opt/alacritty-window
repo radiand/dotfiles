@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+alacritty \
+    -o window.decorations="\"Full\"" \
+    -o window.dimensions.columns=160 \
+    -o window.dimensions.lines=28 \
+    -o window.startup_mode="\"Windowed\"" \
+    -o working_directory="\"$HOME\""
