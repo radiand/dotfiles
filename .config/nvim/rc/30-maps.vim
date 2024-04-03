@@ -22,7 +22,5 @@ nnoremap <leader>ww :e $HOME/vault/index.md<CR>
 " open link under cursor; gx would do that if netrw was enabled
 nnoremap <silent>gl :silent !xdg-open <c-r><c-a><CR>
 
-nnoremap <leader>g :vert Git<CR>
-
 " exit terminal mode with Esc
 tnoremap <esc> <C-\><C-N>
