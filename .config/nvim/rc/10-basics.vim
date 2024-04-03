@@ -27,7 +27,7 @@ set scrolloff=4
 
 " search for tags file up to /
 set tags=tags;/
-set wildignore+=tags,tags.temp,compile_commands.json
+set wildignore+=tags,tags.temp
 
 " disable highlighting search by default, but it can be toggled with :set hlsearch!
 set nohlsearch
