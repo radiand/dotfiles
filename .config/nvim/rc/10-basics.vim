@@ -1,5 +1,3 @@
-set shell=/bin/bash
-
 " store swap (.swp) files in one place
 silent !mkdir $HOME/.config/nvim/tmp/ > /dev/null 2>&1
 set directory^=$HOME/.config/nvim/tmp//
