@@ -15,10 +15,6 @@ set number
 " when matching parentheses, briefly jump to match
 set showmatch
 
-" ignore case when the pattern contains lowercase letters only
-set ignorecase
-set smartcase
-
 " indentation
 set tabstop=4
 set shiftwidth=4
