@@ -80,18 +80,41 @@ class Uid:
         return self.value
 
 
+class TomlRender:
+    def __init__(self, indent: int = 4, max_width: int = 80) -> None:
+        self._indent = indent
+        self._max_width = max_width
+
+    def dumps(self, item: str | list[str]) -> str:
+        if isinstance(item, str):
+            return self._quoted(item)
+
+        if isinstance(item, list):
+            one_line = self._quoted_list(item)
+            if len(one_line) <= self._max_width:
+                return one_line
+            return self._quoted_list_multiline(item)
+
+        raise RuntimeError("Cannot render to toml: {0}".format(item))
+
+    def _quoted_list_multiline(self, array: list[str]) -> str:
+        retval = "[\n"
+        for item in array:
+            retval += "{indent}{item},\n".format(indent=" " * self._indent, item=self._quoted(item))
+        retval += "]"
+        return retval
+
+    def _quoted(self, text: str) -> str:
+        return f'"{text}"'
+
+    def _quoted_list(self, array: list[str]) -> str:
+        return "[{0}]".format(", ".join(map(self._quoted, array)))
+
+
 def collect_uids(text: str) -> list[Uid]:
     uid_pattern = r"\d{4}\d{2}\d{2}T\d{2}\d{2}\d{2}Z"
     matches = re.findall(pattern=uid_pattern, string=text)
     return list(map(Uid, matches))
-
-
-def quoted(string: str) -> str:
-    return f'"{string}"'
-
-
-def quotedlist(array: list[str]) -> str:
-    return "[{0}]".format(", ".join(map(quoted, array)))
 
 
 @dataclass
@@ -119,12 +142,13 @@ class ZkHeader:
         return cls(**data)
 
     def to_str(self) -> str:
-        title = quoted(self.title)
-        timestamp = quoted(datetime_to_str(self.timestamp))
-        uid = quoted(str(self.uid))
-        tags = quotedlist(sorted(list(self.tags)))
-        referred_from = quotedlist(sorted(list(map(str, self.referred_from))))
-        refers_to = quotedlist(sorted(list(map(str, self.refers_to))))
+        tr = TomlRender(indent=4, max_width=72)
+        title = tr.dumps(self.title)
+        timestamp = tr.dumps(datetime_to_str(self.timestamp))
+        uid = tr.dumps(str(self.uid))
+        tags = tr.dumps(sorted(list(self.tags)))
+        referred_from = tr.dumps(sorted(list(map(str, self.referred_from))))
+        refers_to = tr.dumps(sorted(list(map(str, self.refers_to))))
 
         return "\n".join(
             [
