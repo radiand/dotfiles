@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+timestamp=$(date -u +"%Y%m%dT%H%M%SZ")
+vault_archive_path=/tmp/vault-"$timestamp".tgz
+tar -czf "$vault_archive_path" -C $HOME vault
+
 printf "Provide Proton 2FA TOTP code: "
 read totp
-rclone sync -v --protondrive-2fa="$totp" "$@" ~/wiki proton:wiki
-rclone sync -v --protondrive-2fa="$totp" "$@" ~/vault proton:vault
+rclone sync -v --protondrive-2fa="$totp" "$@" "$vault_archive_path" proton:backup
