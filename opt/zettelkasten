@@ -43,6 +43,8 @@ def str_to_datetime(dt: str) -> datetime:
 
 @dataclass(frozen=True)
 class Config:
+    """Represents config file stored in ~/.config/zettelkasten/config.toml."""
+
     path: Path
 
     @classmethod
@@ -57,6 +59,8 @@ class Config:
 
 @dataclass(frozen=True)
 class Uid:
+    """Represents zettelkasten note UID, which is its filename as well."""
+
     value: str
 
     @classmethod
@@ -73,6 +77,12 @@ class Uid:
 
 
 class TomlRender:
+    """Renders values into TOML-compatible formats.
+
+    It is a poor man's approch to toml writer libs, without actually using them.
+
+    """
+
     def __init__(self, indent: int = 4, max_width: int = 80) -> None:
         self._indent = indent
         self._max_width = max_width
@@ -92,7 +102,9 @@ class TomlRender:
     def _quoted_list_multiline(self, array: list[str]) -> str:
         retval = "[\n"
         for item in array:
-            retval += "{indent}{item},\n".format(indent=" " * self._indent, item=self._quoted(item))
+            retval += "{indent}{item},\n".format(
+                indent=" " * self._indent, item=self._quoted(item)
+            )
         retval += "]"
         return retval
 
@@ -111,6 +123,8 @@ def collect_uids(text: str) -> list[Uid]:
 
 @dataclass
 class ZkHeader:
+    """Represents TOML header found at the top of every ZK note."""
+
     title: str
     timestamp: datetime
     uid: Uid
@@ -120,6 +134,11 @@ class ZkHeader:
 
     @classmethod
     def from_str(cls, string: str) -> "ZkHeader":
+        """Create instance from string.
+
+        Argument to this method must be an extracted part of ZK note, with TOML only.
+
+        """
         data = tomllib.loads(string)
         timestamp = data["timestamp"]
 
@@ -134,6 +153,8 @@ class ZkHeader:
         return cls(**data)
 
     def to_str(self) -> str:
+        """Convert this instance into TOML string."""
+
         tr = TomlRender(indent=4, max_width=72)
         title = tr.dumps(self.title)
         timestamp = tr.dumps(datetime_to_str(self.timestamp))
@@ -154,27 +175,37 @@ class ZkHeader:
         )
 
     def refer_from(self, uid: Uid | set[Uid]) -> None:
+        """Mark what other note refers to this note."""
         uids = uid if isinstance(uid, set) else set([uid])
         self.referred_from.update(uids)
 
     def refer_to(self, uid: Uid | set[Uid]) -> None:
+        """Mark what other notes this note refers to."""
         uids = uid if isinstance(uid, set) else set([uid])
         self.refers_to.update(uids)
 
 
 @dataclass
 class ZkFile:
+    """Represents whole ZK note."""
+
     header: ZkHeader
     body: str
 
     @classmethod
     def from_str(cls, string: str) -> "ZkFile":
+        """Create instance from string.
+
+        This method accepts whole ZK note string.
+
+        """
         zk_header = ZkHeader.from_str(cls.extract_fenced_header(string))
         header_pos = [m.end() for m in re.finditer("```", string)][1]
         zk_body = string[header_pos:].strip()
         return cls(zk_header, zk_body)
 
     def to_str(self) -> str:
+        """Convert this instance to TOML string."""
         return "\n".join(
             [
                 "```toml",
@@ -225,6 +256,8 @@ class ZkFileRepository:
 
 
 class CreateCommand:
+    """Creates new ZK note and saves it to file or prints."""
+
     def __init__(self, zk_root: Path) -> None:
         self._zk_root = zk_root
 
@@ -252,6 +285,8 @@ class CreateCommand:
 
 
 class BackupCommand:
+    """Backups whole root directory."""
+
     def __init__(self, zk_root: Path, backup_root: Path) -> None:
         self._zk_root = zk_root
         self._backup_root = backup_root
@@ -263,7 +298,7 @@ class BackupCommand:
 
 
 class ReferencesCommand:
-    """Create (or fix) references between files in ZK headers."""
+    """Creates (or fixes) references between files in ZK headers."""
 
     def run(self, files: list[ZkFile]) -> list[ZkFile]:
         refmap: dict[Uid, set[Uid]] = defaultdict(set)
@@ -281,7 +316,9 @@ class ReferencesCommand:
             # Prevent self-references.
             destinations.discard(source)
 
-            LOGGER.print(f"Referencing {source} with {[uid.value for uid in destinations]}")
+            LOGGER.print(
+                f"Referencing {source} with {[uid.value for uid in destinations]}"
+            )
             filesmap[source].header.refer_to(destinations)
             for dst in destinations:
                 filesmap[dst].header.refer_from(source)
@@ -290,6 +327,8 @@ class ReferencesCommand:
 
 
 class ZkQuery:
+    """Queries notes, e.g. by tags."""
+
     def __init__(self, files: list[ZkFile]) -> None:
         self._files = files.copy()
 
@@ -307,6 +346,8 @@ class ZkQuery:
 
 
 class FormatCommand:
+    """Pretty-prints given lists of notes."""
+
     def run(self, files: list[ZkFile]) -> str:
         template = "{uid} | {title:<{title_width}} | {tags}"
         title_width = self._max_char_width(files, key="header.title")
@@ -397,12 +438,16 @@ class TestReferencesCommand(unittest.TestCase):
 
         # THEN
         result_src_zk = results[Uid.from_datetime(src_dt)]
-        self.assertEqual(result_src_zk.header.refers_to, set([Uid.from_datetime(dst_dt)]))
+        self.assertEqual(
+            result_src_zk.header.refers_to, set([Uid.from_datetime(dst_dt)])
+        )
         self.assertEqual(result_src_zk.header.referred_from, set())
 
         result_dst_zk = results[Uid.from_datetime(dst_dt)]
         self.assertEqual(result_dst_zk.header.refers_to, set())
-        self.assertEqual(result_dst_zk.header.referred_from, set([Uid.from_datetime(src_dt)]))
+        self.assertEqual(
+            result_dst_zk.header.referred_from, set([Uid.from_datetime(src_dt)])
+        )
 
     def test_references_are_removed(self) -> None:
         # GIVEN
@@ -415,7 +460,9 @@ class TestReferencesCommand(unittest.TestCase):
             refers_to=set([Uid.from_datetime(dst_dt)]),
         )
         dst_zk = make_zk(
-            body="Blah, blah", timestamp=dst_dt, referred_from=set([Uid.from_datetime(src_dt)])
+            body="Blah, blah",
+            timestamp=dst_dt,
+            referred_from=set([Uid.from_datetime(src_dt)]),
         )
 
         # WHEN
@@ -483,12 +530,16 @@ class TestZkQuery(unittest.TestCase):
 # --------------------------------------------------------------------------------------------------
 def get_args():
     parser = argparse.ArgumentParser(prog="zettelkasten")
-    parser.add_argument("-v", "--verbose", action="store_true", help="print log messages")
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", help="print log messages"
+    )
 
     subparsers = parser.add_subparsers(help="commands", dest="command", required=True)
 
-    tests_subparser = subparsers.add_parser("tests", help="run test suite")
+    # Command: tests
+    subparsers.add_parser("tests", help="run test suite")
 
+    # Command: new
     new_subparser = subparsers.add_parser("new", help="create new note")
     new_subparser.add_argument(
         "-s",
@@ -497,9 +548,10 @@ def get_args():
         help="print note header instead creating the file",
     )
 
-    references_subparser = subparsers.add_parser(
-        "references", help="scan zk files and set references"
-    )
+    # Command: references
+    subparsers.add_parser("references", help="scan zk files and set references")
+
+    # Command: query
     query_subparser = subparsers.add_parser("query", help="query zk files")
     query_subparser.add_argument("-t", "--tag", action="append", type=str)
 
