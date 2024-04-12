@@ -13,4 +13,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 
+if executable('node')
+    Plug 'github/copilot.vim'
+endif
+
 call plug#end()
