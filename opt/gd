@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Synopis: utility to work with bare git repo dotfiles
+# Usage: same as git, use '$gd' instead '$git' in shell
+
+cmd="git --git-dir=$HOME/.git-dotfiles/ --work-tree=$HOME"
+
+function echo_warn() {
+    echo -e "\e[41m"$1"\e[0m"
+}
+
+if [[ "$($cmd branch --show-current)" != "master" ]]; then
+    echo_warn '┌────────────────────────────────┐'
+    echo_warn '│ WARNING: not on master branch! │'
+    echo_warn '└────────────────────────────────┘'
+fi
+
+$cmd "$@"
