@@ -34,4 +34,9 @@ command ZettelGoto :call ZettelGoto()
 
 nnoremap <leader>zk :ZettelCreate<CR>
 nnoremap <leader>zg :ZettelGoto<CR>
-nnoremap <leader>zf :lua require("telescope.builtin").live_grep({cwd=vim.fn.ZettelGetRootDir(), additional_args={"--no-ignore"}})<CR>
+
+" For telescope.nvim
+" nnoremap <leader>zf :lua require("telescope.builtin").live_grep({cwd=vim.fn.ZettelGetRootDir(), additional_args={"--no-ignore"}})<CR>
+
+" For fzf.vim
+nnoremap <leader>zf :call RGPath(0, ZettelGetRootDir())<CR>
