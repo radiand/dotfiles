@@ -1,12 +1,3 @@
-" store swap (.swp) files in one place
-silent !mkdir $HOME/.config/nvim/tmp/ > /dev/null 2>&1
-set directory^=$HOME/.config/nvim/tmp//
-
-" store persistent undo files in one place
-set undofile
-silent !mkdir $HOME/.config/nvim/undo/ > /dev/null 2>&1
-set undodir=~/.config/nvim/undo//
-
 " lineno
 set number
 
