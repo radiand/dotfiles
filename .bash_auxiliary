@@ -1,12 +1,15 @@
 export EDITOR=nvim
 
-# works if FZF was installed from debian packages
-[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+if command -v fzf &> /dev/null
+then
+    # works if FZF was installed from debian packages
+    [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
-# works if FZF was installed from fedora packages
-[ -f /usr/share/fzf/shell/key-bindings.bash ] && source /usr/share/fzf/shell/key-bindings.bash
+    # works if FZF was installed from fedora packages
+    [ -f /usr/share/fzf/shell/key-bindings.bash ] && source /usr/share/fzf/shell/key-bindings.bash
 
-export FZF_DEFAULT_OPTS='--color 16'
+    export FZF_DEFAULT_OPTS='--color 16'
+fi
 
 # zoxide
 if command -v zoxide &> /dev/null
