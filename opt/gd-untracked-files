@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Print files in current directory that are not tracked by gd. Not recursive!
+
+diff <(gd ls-files ':(glob)*') <(ls -ap | grep -v /) --minimal --color=always
