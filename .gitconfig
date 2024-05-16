@@ -5,7 +5,7 @@
     diffcat = diff --no-prefix -U1000
     dog = log --all --decorate --oneline --graph
     fap = fetch --all --prune
-    fzadd = !git status --short | fzf -m | sed 's/^\\s*//g' | cut -d' ' -f2- | xargs git add
+    fzadd = !git -c color.status=always status --short | fzf --ansi -m | sed 's/^\\s*//g' | cut -d' ' -f2- | xargs git add
     l = log --no-merges
     last = show HEAD --name-status
     logo = log --oneline
