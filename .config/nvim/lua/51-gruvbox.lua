@@ -18,7 +18,17 @@ require("gruvbox").setup({
     inverse = true, -- invert background for search, diffs, statuslines and errors
     contrast = "hard", -- can be "hard", "soft" or empty string
     palette_overrides = {},
-    overrides = {},
+    overrides = {
+        -- Make gutter have same color as background.
+        SignColumn = { link = "Normal" },
+        GruvboxAquaSign = { bg = "" },
+        GruvboxBlueSign = { bg = "" },
+        GruvboxGreenSign = { bg = "" },
+        GruvboxOrangeSign = { bg = "" },
+        GruvboxPurpleSign = { bg = "" },
+        GruvboxRedSign = { bg = "" },
+        GruvboxYellowSign = { bg = "" },
+    },
     dim_inactive = false,
     transparent_mode = false,
 })
