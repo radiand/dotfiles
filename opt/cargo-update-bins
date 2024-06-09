@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Update all binaries installed with cargo.
+
+cargo install --list | awk '/^[[:alnum:]]/ {print $1}' | xargs cargo install
