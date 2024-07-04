@@ -2,7 +2,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'ellisonleao/gruvbox.nvim'
-Plug 'junegunn/fzf', { 'tag': '0.52.1' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'lifepillar/vim-mucomplete'
 Plug 'mechatroner/rainbow_csv'
