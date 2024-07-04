@@ -6,6 +6,7 @@
     dog = log --all --decorate --oneline --graph
     fap = fetch --all --prune
     fzadd = !git -c color.status=always status --short | fzf --ansi -m | sed 's/^\\s*//g' | cut -d' ' -f2- | xargs git add
+    fzbrrm = !git branch -a | cut -c3- | fzf -m --ansi --preview 'git show --color=always {}' | xargs -I{} git branch -D {}
     l = log --no-merges
     last = show HEAD --name-status
     logo = log --oneline
