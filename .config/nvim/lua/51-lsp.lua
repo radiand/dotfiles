@@ -2,7 +2,16 @@
 
 -- Setup language servers.
 local lspconfig = require("lspconfig")
+
 lspconfig.pyright.setup({})
+lspconfig.ruff.setup({
+    on_attach = function(client, bufnr)
+        if client.name == "ruff" then
+            -- Disable hover in favor of Pyright
+            client.server_capabilities.hoverProvider = false
+        end
+    end,
+})
 lspconfig.rust_analyzer.setup({
     -- Server-specific settings. See `:help lspconfig-setup`
     settings = {
