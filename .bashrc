@@ -12,6 +12,7 @@ stty -ixon
 [ -f ~/.bash_auxiliary ] && source ~/.bash_auxiliary
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.bash_docker ] && source ~/.bash_docker
+[ -f ~/.bash_go ] && source ~/.bash_go
 [ -f ~/.bash_python ] && source ~/.bash_python
 [ -f ~/.bash_functions ] && source ~/.bash_functions
 [ -f ~/.bash_proxy ] && source ~/.bash_proxy
