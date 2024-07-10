@@ -65,6 +65,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<leader>gq", function()
             vim.lsp.buf.format({ async = true })
         end, opts)
+
+        -- Use internal formatting for bindings like gq.
+        vim.bo[ev.buf].formatexpr = nil 
     end,
 })
 
