@@ -3,6 +3,7 @@
 -- Setup language servers.
 local lspconfig = require("lspconfig")
 
+lspconfig.gopls.setup({})
 lspconfig.pyright.setup({})
 lspconfig.ruff.setup({
     on_attach = function(client, bufnr)
