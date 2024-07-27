@@ -10,6 +10,7 @@ Plug 'mechatroner/rainbow_csv'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'sheerun/vim-polyglot'
+Plug 'stevearc/conform.nvim'
 Plug 'stevearc/oil.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
