@@ -21,7 +21,7 @@ layers:
   passThrough: true
   bindings:
     r: reload-config
-    leftalt: speed 0.5
+    space: speed 4.0
 
     h: move -1  0
     j: move  0  1
