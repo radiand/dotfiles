@@ -1,8 +1,5 @@
 function ZettelGetRootDir()
-    let pattern = 'path\s?=\s?"\K[^"]+'
-    let cmd = "grep -oP '" .. pattern .. "' $HOME/.config/zettelkasten/config.toml"
-    let path = system(cmd)
-    return trim(substitute(path, "\\~", $HOME, ""))
+    return trim(system('zettelkasten get ZettelkastenDir'))
 endfunction
 
 function ZettelCreate()

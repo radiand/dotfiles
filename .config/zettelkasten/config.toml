@@ -1,1 +1,2 @@
-path = "~/vault/zettelkasten"
+zettelkasten_dir = "~/vault/zettelkasten/notes"
+index_dir = "~/vault/zettelkasten/index"
