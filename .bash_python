@@ -8,7 +8,7 @@ pipvenv() {
         python3 -m venv .venv
     fi
 
-    . venv/bin/activate
+    . .venv/bin/activate
 }
 
 uvvenv() {
