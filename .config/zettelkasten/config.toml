@@ -1,2 +1,2 @@
-zettelkasten_dir = "~/vault/zettelkasten/notes"
-index_dir = "~/vault/zettelkasten/index"
+zettelkasten_dir = "~/vault/zettelkasten"
+default_workspace = "main"
