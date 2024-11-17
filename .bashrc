@@ -9,6 +9,14 @@ set +m
 
 stty -ixon
 
+export PATH=~/bin:$PATH
+export PATH=~/.local/bin:$PATH
+export PATH=~/opt:$PATH
+export PATH=~/.cargo/bin:$PATH
+
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
+
 [ -f ~/.bash_auxiliary ] && source ~/.bash_auxiliary
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.bash_docker ] && source ~/.bash_docker
@@ -21,11 +29,6 @@ stty -ixon
 
 # fedora-specific path for git prompt
 [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
-
-export PATH=~/bin:$PATH
-export PATH=~/.local/bin:$PATH
-export PATH=~/opt:$PATH
-export PATH=~/.cargo/bin:$PATH
 
 # pull rust cargo env
 . "$HOME/.cargo/env"
@@ -88,11 +91,3 @@ case "$TERM" in
     *)
         ;;
 esac
-
-if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-    fi
-fi
