@@ -3,7 +3,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'ellisonleao/gruvbox.nvim'
-Plug 'ggandor/leap.nvim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'lifepillar/vim-mucomplete'
