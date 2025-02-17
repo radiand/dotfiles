@@ -2,7 +2,7 @@ let g:copilot_filetypes = {
     \ '*': v:false,
     \ 'bash': v:true,
     \ 'html': v:true,
-    \ 'markdown': v:true,
+    \ 'markdown': v:false,
     \ 'python': v:true,
     \ 'vim': v:true,
     \ }
