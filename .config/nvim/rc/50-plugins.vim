@@ -19,7 +19,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 
 if executable('node')
+    Plug 'CopilotC-Nvim/CopilotChat.nvim', {'tag': 'v3.3.3'}
     Plug 'github/copilot.vim'
+    Plug 'nvim-lua/plenary.nvim'
 endif
 
 call plug#end()
