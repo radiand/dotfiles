@@ -30,6 +30,9 @@ export PATH=~/.cargo/bin:$PATH
 # fedora-specific path for git prompt
 [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
 
+# debian-specific path for git prompt
+[ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
+
 # pull rust cargo env
 . "$HOME/.cargo/env"
 
@@ -63,31 +66,6 @@ case "$TERM" in
     xterm*) TERM=xterm-256color
 esac
 
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-PROMPT_DIRTRIM=1
-GIT_PS1_SHOWDIRTYSTATE=1
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}'
-    PS1+='\[\033[00m\]'  # reset
-    PS1+='\[\033[01;34m\]\w'  # location
-    PS1+='\[\033[00m\]'  # reset
-    PS1+='\[\033[38;5;250m\]$(__git_ps1)'
-    PS1+='\[\e[0;$(($?==0?32:31))m\]>'  # green '>' if last cmd succeed, else red
-    PS1+='\[\033[00m\] '  # end
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+if command -v starship &> /dev/null; then
+    eval "$(starship init bash)"
 fi
-unset color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-    xterm*|rxvt*)
-        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-        ;;
-    *)
-        ;;
-esac
