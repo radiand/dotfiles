@@ -1,7 +1,9 @@
 require("conform").setup({
     formatters_by_ft = {
+        json = { "jq" },
         lua = { "stylua" },
-        python = { "isort", "black" },
+        python = { "isort", "ruff_format" },
+        yaml = { "yamlfmt" },
     },
 })
 
