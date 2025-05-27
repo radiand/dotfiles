@@ -1,6 +1,7 @@
 let g:copilot_filetypes = {
     \ '*': v:false,
     \ 'bash': v:true,
+    \ 'helm': v:true,
     \ 'html': v:true,
     \ 'markdown': v:false,
     \ 'python': v:true,
