@@ -7,6 +7,10 @@ require("conform").setup({
     },
 })
 
+require("conform").formatters.stylua = {
+    prepend_args = { "--indent-type", "Spaces", "--column-width", "100" },
+}
+
 vim.api.nvim_create_user_command("Format", function(args)
     local range = nil
     if args.count ~= -1 then
