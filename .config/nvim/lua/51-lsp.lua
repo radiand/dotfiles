@@ -1,11 +1,8 @@
 -- formatted with '$ stylua --indent-type Spaces --column-width 100'
 
--- Setup language servers.
-local lspconfig = require("lspconfig")
-
-lspconfig.gopls.setup({})
-lspconfig.pyright.setup({})
-lspconfig.ruff.setup({
+-- Setup language servers
+vim.lsp.enable({ "gopls", "pyright", "ruff", "rust_analyzer" })
+vim.lsp.config("ruff", {
     on_attach = function(client, bufnr)
         if client.name == "ruff" then
             -- Disable hover in favor of Pyright
@@ -13,8 +10,7 @@ lspconfig.ruff.setup({
         end
     end,
 })
-lspconfig.rust_analyzer.setup({
-    -- Server-specific settings. See `:help lspconfig-setup`
+vim.lsp.config("rust_analyzer", {
     settings = {
         ["rust-analyzer"] = {
             imports = {
@@ -51,7 +47,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local opts = { buffer = ev.buf }
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
         vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
@@ -60,15 +55,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, opts)
         vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-        vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "<leader>gq", function()
-            vim.lsp.buf.format({ async = true })
-        end, opts)
 
-        -- Use internal formatting for bindings like gq.
-        vim.bo[ev.buf].formatexpr = nil 
+        -- Autocomplete.
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client:supports_method("textDocument/completion") then
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+        end
     end,
 })
 
@@ -77,5 +69,4 @@ vim.diagnostic.config({
     signs = true,
     underline = false,
     update_in_insert = false,
-    virtual_text = false,
 })

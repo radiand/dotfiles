@@ -5,7 +5,6 @@ Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'lifepillar/vim-mucomplete'
 Plug 'mechatroner/rainbow_csv'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
