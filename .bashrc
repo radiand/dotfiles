@@ -17,7 +17,6 @@ export PATH=~/.cargo/bin:$PATH
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
 
-[ -f ~/.bash_auxiliary ] && source ~/.bash_auxiliary
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.bash_docker ] && source ~/.bash_docker
 [ -f ~/.bash_go ] && source ~/.bash_go
@@ -65,6 +64,20 @@ fi
 case "$TERM" in
     xterm*) TERM=xterm-256color
 esac
+
+export EDITOR=nvim
+
+if command -v fzf &> /dev/null
+then
+    eval "$(fzf --bash)"
+    export FZF_DEFAULT_OPTS='--color 16'
+fi
+
+if command -v zoxide &> /dev/null
+then
+    eval "$(zoxide init bash)"
+    export _ZO_DOCTOR=0
+fi
 
 if command -v starship &> /dev/null; then
     eval "$(starship init bash)"
