@@ -70,7 +70,6 @@ export EDITOR=nvim
 if command -v fzf &> /dev/null
 then
     eval "$(fzf --bash)"
-    export FZF_DEFAULT_OPTS='--color 16'
 fi
 
 if command -v zoxide &> /dev/null
