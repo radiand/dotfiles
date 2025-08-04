@@ -6,3 +6,6 @@ set signcolumn=yes
 
 " hide tilde character (end of buffer)
 let &fcs='eob: '
+
+" Custom colorscheme settings
+let g:bones_compat=1

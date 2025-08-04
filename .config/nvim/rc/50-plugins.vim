@@ -15,6 +15,7 @@ Plug 'stevearc/oil.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'zenbones-theme/zenbones.nvim'
 
 if executable('node')
     Plug 'github/copilot.vim'
