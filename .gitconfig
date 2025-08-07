@@ -13,7 +13,7 @@
     stashow = stash show -p
     undorebase = reset --hard ORIG_HEAD
     where = config --get remote.origin.url
-[core]
-    pager = diffr | less -R
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 [merge]
-    tool = meld
+    tool = nvim
