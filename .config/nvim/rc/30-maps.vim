@@ -16,6 +16,9 @@ nnoremap <leader>b :ls<CR>:b<Space>
 " switch current buffer to alternate and delete the alternate
 nnoremap <leader>db :bp\|bd #<CR>
 
+" list opened tabs and await typing number to switch tab
+nnoremap <leader>n :tabs<CR>:tabn<Space>
+
 " open link under cursor; gx would do that if netrw was enabled
 nnoremap <silent>gl :silent !xdg-open <c-r><c-a><CR>
 
