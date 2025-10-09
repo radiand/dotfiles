@@ -14,6 +14,6 @@
     undorebase = reset --hard ORIG_HEAD
     where = config --get remote.origin.url
 [mergetool "nvim"]
-  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 [merge]
     tool = nvim
