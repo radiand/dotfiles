@@ -16,7 +16,7 @@ set scrolloff=4
 
 " search for tags file up to /
 set tags=tags;/
-set wildignore+=tags,tags.temp
+set wildignore+=tags,tags.temp,build,dist,coverage,*.o,*.obj,*.pyc,*.pyo,*.swp,*.swo
 
 " disable highlighting search by default, but it can be toggled with :set hlsearch!
 set nohlsearch
