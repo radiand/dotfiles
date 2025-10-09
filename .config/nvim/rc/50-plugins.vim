@@ -2,7 +2,6 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
-Plug 'ellisonleao/gruvbox.nvim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mechatroner/rainbow_csv'
