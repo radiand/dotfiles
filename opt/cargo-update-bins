@@ -2,4 +2,4 @@
 
 # Update all binaries installed with cargo.
 
-cargo install --list | awk '/^[[:alnum:]]/ {print $1}' | xargs cargo install
+cargo install $(cargo install --list | egrep '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')
