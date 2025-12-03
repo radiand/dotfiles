@@ -18,3 +18,5 @@ bind n findnext --search-from-view
 bind N findnext --search-from-view --reverse
 bind gn findselect
 bind gN composite findnext --search-from-view --reverse; findselect
+bind J tabnext
+bind K tabprev
