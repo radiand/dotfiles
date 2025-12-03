@@ -81,3 +81,7 @@ fi
 if command -v starship &> /dev/null; then
     eval "$(starship init bash)"
 fi
+
+if command -v delta &> /dev/null; then
+    export DELTA_FEATURES="line-numbers"
+fi
