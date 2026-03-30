@@ -18,8 +18,6 @@ Plug 'zenbones-theme/zenbones.nvim'
 
 if executable('node')
     Plug 'github/copilot.vim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'olimorris/codecompanion.nvim'
 endif
 
 call plug#end()
