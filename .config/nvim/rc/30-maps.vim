@@ -19,6 +19,9 @@ nnoremap <leader>db :bp\|bd #<CR>
 " list opened tabs and await typing number to switch tab
 nnoremap <leader>n :tabs<CR>:tabn<Space>
 
+" toggle :vert Git or gq
+nnoremap <leader>g :vert Git<CR>
+
 " open link under cursor; gx would do that if netrw was enabled
 nnoremap <silent>gl :silent !xdg-open <c-r><c-a><CR>
 
