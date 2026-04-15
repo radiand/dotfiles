@@ -85,3 +85,7 @@ fi
 if command -v delta &> /dev/null; then
     export DELTA_FEATURES="line-numbers"
 fi
+
+if command -v opencode &> /dev/null; then
+    export PATH=~/.opencode/bin:$PATH
+fi
