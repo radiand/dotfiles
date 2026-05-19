@@ -24,3 +24,4 @@ pyclean() {
 }
 
 alias mo='marimo edit --sandbox'
+alias tp='tox p -x "testenv.pass_env=UV_NATIVE_TLS"'
