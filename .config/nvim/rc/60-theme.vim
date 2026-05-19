@@ -9,4 +9,3 @@ let &fcs='eob: '
 
 " Custom colorscheme settings
 let g:bones_compat=1
-colorscheme neobones
