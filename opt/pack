@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+usage() {
+  echo "Usage: $0 <file> [file ...]     # pack to stdout (same headers as tail)" >&2
+  echo "       $0 -u <combined-file>    # unpack into paths from headers" >&2
+  exit 1
+}
+pack() {
+  if [[ $# -eq 0 ]]; then
+    usage
+  fi
+  # Same format as: tail -n +1 file1 file2 ...
+  tail -n +1 -- "$@"
+}
+unpack() {
+  local combined=$1
+  [[ -f "$combined" ]] || { echo "Not a file: $combined" >&2; exit 1; }
+  awk '
+    /^==> / && / <==$/ {
+      close(out)
+      path = $0
+      sub(/^==> /, "", path)
+      sub(/ <==$/, "", path)
+      out = path
+      # dirname for mkdir; skip if no directory
+      if (path ~ /\//) {
+        dir = path
+        sub(/\/[^/]+$/, "", dir)
+        system("mkdir -p -- \"" dir "\"")
+      }
+      next
+    }
+    out != "" { print > out }
+  ' "$combined"
+}
+if [[ $# -eq 0 ]]; then
+  usage
+fi
+if [[ "${1:-}" == "-u" ]]; then
+  shift
+  [[ $# -eq 1 ]] || usage
+  unpack "$1"
+else
+  pack "$@"
+fi
