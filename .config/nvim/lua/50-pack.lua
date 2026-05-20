@@ -1,0 +1,17 @@
+vim.pack.add({
+    "https://github.com/airblade/vim-gitgutter",
+    "https://github.com/akinsho/toggleterm.nvim",
+    "https://github.com/junegunn/fzf",
+    "https://github.com/junegunn/fzf.vim",
+    "https://github.com/mechatroner/rainbow_csv",
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/radiand/zettelkasten",
+    "https://github.com/rebelot/kanagawa.nvim",
+    "https://github.com/sheerun/vim-polyglot",
+    "https://github.com/stevearc/conform.nvim",
+    "https://github.com/stevearc/oil.nvim",
+    "https://github.com/tpope/vim-commentary",
+    "https://github.com/tpope/vim-fugitive",
+    "https://github.com/tpope/vim-surround",
+    "https://github.com/zenbones-theme/zenbones.nvim",
+})
