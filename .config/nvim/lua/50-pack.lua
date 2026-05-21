@@ -11,6 +11,7 @@ vim.pack.add({
     "https://github.com/stevearc/oil.nvim",
     "https://github.com/tpope/vim-commentary",
     "https://github.com/tpope/vim-fugitive",
+    "https://github.com/tpope/vim-obsession",
     "https://github.com/tpope/vim-surround",
     "https://github.com/zenbones-theme/zenbones.nvim",
 })
