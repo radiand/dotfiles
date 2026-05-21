@@ -5,7 +5,6 @@ vim.pack.add({
     "https://github.com/junegunn/fzf.vim",
     "https://github.com/mechatroner/rainbow_csv",
     "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/radiand/zettelkasten",
     "https://github.com/rebelot/kanagawa.nvim",
     "https://github.com/sheerun/vim-polyglot",
     "https://github.com/stevearc/conform.nvim",
