@@ -9,11 +9,4 @@ require("kanagawa").setup({
             },
         },
     },
-    overrides = function(colors)
-        return {
-            StatusLine = { bg = colors.theme.ui.bg_p2 },
-            StatusLineNC = { bg = colors.theme.ui.bg_p1 },
-            WinSeparator = { fg = colors.theme.ui.bg_p2 },
-        }
-    end,
 })
