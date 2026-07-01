@@ -33,7 +33,6 @@ vim.lsp.config("rust_analyzer", {
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
@@ -73,7 +72,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.diagnostic.config({
     severity_sort = true,
-    signs = true,
     underline = false,
-    update_in_insert = false,
 })

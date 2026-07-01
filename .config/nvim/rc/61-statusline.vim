@@ -16,8 +16,6 @@ function! GetInactiveStatusline()
     return line
 endfunction
 
-set laststatus=2
-
 augroup statusline
     autocmd!
     autocmd WinEnter,BufEnter * setlocal statusline=%!GetActiveStatusline()

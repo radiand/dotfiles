@@ -22,7 +22,6 @@ set wildignore+=tags,tags.temp,build,dist,coverage,*.o,*.obj,*.pyc,*.pyo,*.swp,*
 set nohlsearch
 
 " shell-like tab completion of commands
-set wildmenu
 set wildmode=longest:full,full
 
 " yank to xclip
