@@ -1,7 +1,14 @@
 -- formatted with '$ stylua --indent-type Spaces --column-width 100'
 
 -- Setup language servers
-vim.lsp.enable({ "gopls", "pyright", "ruff", "rust_analyzer" })
+vim.lsp.enable({
+    "gopls",
+    "just",
+    "ruff",
+    "rust_analyzer",
+    "tombi",
+    "ty",
+})
 vim.lsp.config("ruff", {
     on_attach = function(client, bufnr)
         if client.name == "ruff" then
