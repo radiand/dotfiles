@@ -54,3 +54,7 @@ update-go-tools:
         printf 'Updating %s (%s)\n' "$binary" "$module"
         go install "$module@latest"
     done
+
+update-joplin:
+    # GitHub API is rate limited. With VPN it will likely fail on listing releases.
+    wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
