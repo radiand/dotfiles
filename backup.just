@@ -30,7 +30,7 @@ home: excludes
 
 forget:
     restic forget \
-        --keep-last "${KEEP_LAST}" \
+        --keep-last 10 \
         --prune
 
 excludes:
