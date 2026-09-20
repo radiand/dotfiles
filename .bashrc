@@ -13,6 +13,7 @@ export PATH=~/bin:$PATH
 export PATH=~/.local/bin:$PATH
 export PATH=~/opt:$PATH
 export PATH=~/.cargo/bin:$PATH
+export PATH=/usr/local/go/bin:$PATH
 
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
