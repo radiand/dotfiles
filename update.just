@@ -1,13 +1,13 @@
 set default-list
-set script-interpreter := ["bash", "-euo", "pipefail"]
+set script-interpreter := ["bash", "-euxo", "pipefail"]
 
 software: \
     apt \
     flatpak \
     rust \
-    cargo-tools \
-    uv-tools \
-    go-tools
+    cargo \
+    uv \
+    go
 
 firmware:
     sudo fwupdmgr get-updates
@@ -17,7 +17,8 @@ apt:
     sudo apt-get update
     sudo apt-get -y upgrade 
 
-uv-tools:
+uv:
+    uv self update
     uv tool upgrade --all
 
 flatpak:
@@ -26,13 +27,11 @@ flatpak:
 rust:
     rustup update
 
-cargo-tools:
+cargo:
     cargo install $(cargo install --list | egrep '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')
 
-go-tools:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
+[script]
+go:
     gobin="$(go env GOBIN)"
 
     if [[ -z "$gobin" ]]; then
