@@ -1,5 +1,4 @@
 set default-list
-set script-interpreter := ["bash", "-euxo", "pipefail"]
 
 software: \
     apt \
@@ -30,29 +29,8 @@ rust:
 cargo:
     cargo install $(cargo install --list | egrep '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')
 
-[script]
 go:
-    gobin="$(go env GOBIN)"
-
-    if [[ -z "$gobin" ]]; then
-        gobin="$(go env GOPATH)/bin"
-    fi
-
-    find "$gobin" -maxdepth 1 -type f -perm -111 -print0 |
-    while IFS= read -r -d '' binary; do
-        module="$(
-            go version -m "$binary" 2>/dev/null |
-            awk '$1 == "path" { print $2; exit }'
-        )"
-
-        if [[ -z "$module" ]]; then
-            printf 'Skipping %s: no Go build information\n' "$binary" >&2
-            continue
-        fi
-
-        printf 'Updating %s (%s)\n' "$binary" "$module"
-        go install "$module@latest"
-    done
+    gup update
 
 joplin:
     # GitHub API is rate limited. With VPN it will likely fail on listing releases.
