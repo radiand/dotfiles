@@ -23,8 +23,8 @@ export PATH=/usr/local/go/bin:$PATH
 [ -f ~/.bash_go ] && source ~/.bash_go
 [ -f ~/.bash_python ] && source ~/.bash_python
 [ -f ~/.bash_functions ] && source ~/.bash_functions
+[ -f ~/.bash_lscolors ] && source ~/.bash_lscolors
 [ -f ~/.bash_proxy ] && source ~/.bash_proxy
-
 [ -f ~/.bash_private ] && source ~/.bash_private
 
 # fedora-specific path for git prompt
