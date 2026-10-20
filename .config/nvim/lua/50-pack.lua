@@ -3,6 +3,7 @@ vim.pack.add({
     "https://github.com/akinsho/toggleterm.nvim",
     "https://github.com/junegunn/fzf",
     "https://github.com/junegunn/fzf.vim",
+    "https://github.com/junegunn/goyo.vim",
     "https://github.com/mechatroner/rainbow_csv",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/rebelot/kanagawa.nvim",
