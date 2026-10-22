@@ -17,7 +17,7 @@ nnoremap <leader>b :ls<CR>:b<Space>
 nnoremap <leader>db :bp\|bd #<CR>
 
 " list opened tabs and await typing number to switch tab
-nnoremap <leader>n :tabs<CR>:tabn<Space>
+nnoremap <leader>t :tabs<CR>:tabn<Space>
 
 " toggle :vert Git or gq
 nnoremap <leader>g :vert Git<CR>
